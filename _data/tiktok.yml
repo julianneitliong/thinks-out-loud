@@ -1,0 +1,21 @@
+# ===============================================================
+#  TIKTOK VIDEOS (Confidence tab)
+#  Newest at the TOP. The home page shows the first 3.
+#    title: a few words about the video
+#    link:  the TikTok video link
+#    date:  like "nov 1"
+#    cover: optional thumbnail image in the images folder ("" for none)
+# ===============================================================
+
+- title: "[Video title]"
+  link: ""
+  date: "nov 1"
+  cover: ""
+- title: "[Video title]"
+  link: ""
+  date: "oct 28"
+  cover: ""
+- title: "[Video title]"
+  link: ""
+  date: "oct 24"
+  cover: ""

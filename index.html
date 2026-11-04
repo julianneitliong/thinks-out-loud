@@ -1,0 +1,135 @@
+---
+layout: default
+---
+{% assign me = site.data.profile %}
+{% assign week = site.data.photo_dumps | first %}
+
+<!-- ================= HERO ================= -->
+<section class="wrap hero-wrap">
+  <div class="hero card">
+    {% include doodles.html kind="star" class="twinkle hero-star-1" size="34" %}
+    {% include doodles.html kind="sparkle" class="twinkle d2 hero-star-2" size="16" %}
+
+    <div class="hero-photo">
+      {% if me.photo and me.photo != "" %}
+      <img src="{{ '/images/' | append: me.photo | relative_url }}" alt="{{ me.photo_alt | escape }}">
+      {% else %}
+      <div class="ph ph-blue hero-ph" role="img" aria-label="{{ me.photo_alt | escape }}"><span class="pixel">[your photo]</span></div>
+      {% endif %}
+      {% include doodles.html kind="heart" class="twinkle d3 hero-heart" size="40" %}
+    </div>
+
+    <div class="hero-text">
+      <div class="pixel status">
+        <span class="online"><span class="blink-dot" aria-hidden="true"></span>online now!</span>
+        <span class="muted">&middot; last updated {{ me.last_updated }}</span>
+      </div>
+      <h1 class="serif hero-title">{{ me.greeting }}</h1>
+      <div class="welcome">
+        <span class="hand">{{ me.welcome }}</span>
+        <svg aria-hidden="true" width="260" height="14" viewBox="0 0 260 14" fill="none" stroke="#A3B899" stroke-width="3" stroke-linecap="round"><path d="M3 9 C 30 3, 55 13, 85 8 S 140 2, 170 8 S 225 13, 257 6"/></svg>
+      </div>
+      <p class="muted hero-intro">{{ me.intro }}</p>
+      <span class="network-pill">Julianne is in your extended network.</span>
+
+      <div class="now-card">
+        <div class="now-grid">
+          <div><span class="pixel muted">mood</span><b>{{ me.now.mood }}</b></div>
+          <div><span class="pixel muted">reading</span><b>{{ me.now.reading }}</b></div>
+          <div><span class="pixel muted">into this week</span><b>{{ me.now.into_this_week }}</b></div>
+          <div><span class="pixel muted">currently</span><b>{{ me.now.currently }}</b></div>
+        </div>
+        <div class="now-playing">
+          <span class="pixel muted">now playing</span>
+          <b>{{ me.song_title }}</b>
+          {% include youtube.html link=me.youtube_link title=me.song_title %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHOTO DUMP ================= -->
+{% if week %}
+<section class="wrap dump-wrap">
+  <div class="section-head">
+    <div class="section-head-left">
+      <h2 class="serif section-title">this week's photo dump</h2>
+      <span class="hand week-sticker">{{ week.week }}</span>
+    </div>
+    <a class="small-link" href="{{ '/past-dumps/' | relative_url }}">past dumps &rsaquo;&rsaquo;</a>
+  </div>
+  {% include photo-dump.html week=week %}
+</section>
+{% endif %}
+
+<!-- ================= TABS + SIDEBAR ================= -->
+<main class="wrap columns">
+  <div class="col-main">
+    <section class="folders" data-tabs>
+      <div class="tablist" role="tablist" aria-label="Categories">
+        {% for cat in site.categories_info %}
+        <button type="button" role="tab" class="tab{% if forloop.first %} is-on{% endif %}" id="tab-{{ cat.id }}" aria-controls="panel-{{ cat.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>
+          <svg aria-hidden="true" width="15" height="13" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h4l1.5 1.5H13V11H1z"/></svg>{{ cat.label }}
+        </button>
+        {% endfor %}
+      </div>
+
+      {% for cat in site.categories_info %}
+      {% assign posts = site.categories[cat.id] %}
+      <div class="panel card" role="tabpanel" id="panel-{{ cat.id }}" aria-labelledby="tab-{{ cat.id }}"{% unless forloop.first %} hidden{% endunless %}>
+        {% if cat.id == 'time' %}
+          {% include time-chart.html %}
+          <a class="small-link" href="{{ '/time/' | relative_url }}">how I track this &amp; time posts &rsaquo;&rsaquo;</a>
+        {% else %}
+          <div class="panel-head">
+            <h3 class="panel-title serif">{{ cat.title }}</h3>
+            <a class="small-link" href="{{ '/' | append: cat.id | append: '/' | relative_url }}">see all {{ cat.label | downcase }} posts &rsaquo;&rsaquo;</a>
+          </div>
+
+          {% if cat.id == 'learning' and me.spotlight.name != "" %}
+          <div class="spotlight lift">
+            <div>
+              <span class="pixel muted">project spotlight</span>
+              <b class="serif spotlight-name">{{ me.spotlight.name }}</b>
+              <span class="muted">{{ me.spotlight.description }}</span>
+            </div>
+            {% if me.spotlight.link != "" %}<a class="pill-link" href="{{ me.spotlight.link }}">View on GitHub &#8599;</a>{% endif %}
+          </div>
+          {% endif %}
+
+          {% if cat.id == 'confidence' and site.data.tiktok.size > 0 %}
+          <div class="video-grid">
+            {% for v in site.data.tiktok limit: 3 %}
+            <a class="video lift" href="{% if v.link != '' %}{{ v.link }}{% else %}#{% endif %}">
+              <div class="video-thumb">
+                {% if v.cover and v.cover != "" %}<img src="{{ '/images/' | append: v.cover | relative_url }}" alt="" loading="lazy">{% endif %}
+                <svg aria-hidden="true" width="30" height="30" viewBox="0 0 28 28" fill="#FEF9E3"><path d="M10 7l11 7-11 7z"/></svg>
+              </div>
+              <b>{{ v.title }}</b>
+              <span class="pixel muted">tiktok &middot; {{ v.date }}</span>
+            </a>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {% if posts and posts.size > 0 %}
+            {% for p in posts limit: 3 %}{% include post-card.html post=p %}{% endfor %}
+          {% else %}
+            <p class="muted empty">no posts here yet. check back soon!</p>
+          {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="blurbs">
+      {% include doodles.html kind="star" class="twinkle blurbs-star" size="30" fill="#D6E9F6" %}
+      <h2 class="serif card-title">julianne's blurbs</h2>
+      <div><span class="hand blurb-label">things that make me happy</span><p>{{ me.things_that_make_me_happy }}</p></div>
+      <div><span class="hand blurb-label">who i'd like to meet</span><p>{{ me.who_id_like_to_meet }}</p></div>
+    </section>
+  </div>
+
+  {% include sidebar.html %}
+</main>

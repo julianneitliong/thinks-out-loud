@@ -1,0 +1,74 @@
+# ===============================================================
+#  YOUR PROFILE
+#  Edit the words between the quotes " ".
+#  Keep the quotes and the colons : exactly where they are.
+#  Click "Commit changes" when you're done. The site updates in ~1 minute.
+# ===============================================================
+
+# ---------- Hero (top of the home page) ----------
+greeting: "hi, i'm julianne :)"
+welcome: "welcome friend! thanks for stopping by!"
+intro: "[A couple of sentences about you, in your own words: who you are and why this little corner of the internet exists.]"
+last_updated: "11/04/2026"
+
+# Your photo: upload it to the images folder, then type its file name here.
+# Leave it as "" to show a placeholder.
+photo: ""
+photo_alt: "Julianne"
+
+# ---------- Now card ----------
+now:
+  mood: "[mood]"
+  reading: "[book]"
+  into_this_week: "[thing]"
+  currently: "[what you're up to]"
+
+# ---------- Song of the week ----------
+# Paste a YouTube link to a song OR a playlist, for example:
+#   https://www.youtube.com/watch?v=abc123
+#   https://youtu.be/abc123
+#   https://www.youtube.com/playlist?list=PLabc123
+# Leave it as "" to hide the player.
+song_title: "[Song] — [Artist]"
+youtube_link: ""
+
+# ---------- Julianne's blurbs ----------
+things_that_make_me_happy: "[A quick list: little joys, rituals, guilty pleasures.]"
+who_id_like_to_meet: "[The classic MySpace question, answered your way.]"
+
+# ---------- Interests (sidebar) ----------
+# Add or remove rows. Each row needs a label and a value.
+interests:
+  - label: "general"
+    value: "[hobbies, things you geek out about]"
+  - label: "music"
+    value: "[artists, genres]"
+  - label: "movies"
+    value: "[favorites]"
+  - label: "television"
+    value: "[shows]"
+  - label: "books"
+    value: "[what you are reading]"
+  - label: "heroes"
+    value: "[who inspires you]"
+
+# ---------- Find me elsewhere ----------
+# Leave a link as "" to hide that button.
+links:
+  github: "https://github.com/julianneitliong"
+  tiktok: ""
+  linkedin: ""
+  email: ""        # just the address, like "you@example.com"
+
+# ---------- Sticky note (sidebar) ----------
+note_to_self: "[a little reminder you want to see this week]"
+
+# ---------- Learning & Projects tab: project spotlight ----------
+spotlight:
+  name: "[Project name]"
+  description: "[One line on what it does.]"
+  link: "https://github.com/julianneitliong"
+
+# ---------- Time Well Spent tab ----------
+# A small note under the chart title. Change it or set it to "".
+time_note: "sample numbers, replace with yours in _data/time.csv"

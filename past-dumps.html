@@ -1,0 +1,15 @@
+---
+layout: default
+title: Past photo dumps
+permalink: /past-dumps/
+---
+<main class="wrap">
+  <section class="dump-wrap">
+    <a class="small-link back" href="{{ '/' | relative_url }}">&lsaquo;&lsaquo; home</a>
+    <h1 class="serif section-title">past photo dumps</h1>
+    {% for week in site.data.photo_dumps %}
+    <div class="section-head"><span class="hand week-sticker">{{ week.week }}</span></div>
+    {% include photo-dump.html week=week %}
+    {% endfor %}
+  </section>
+</main>

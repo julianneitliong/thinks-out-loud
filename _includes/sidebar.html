@@ -1,0 +1,29 @@
+{% assign me = site.data.profile %}
+<aside class="col-side">
+  <section class="card side-card lift">
+    <h2 class="serif card-title">interests</h2>
+    {% for it in me.interests %}
+    <div class="interest-row">
+      <span class="pixel accent">{{ it.label }}</span>
+      <span>{{ it.value }}</span>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="card side-card">
+    <h2 class="serif card-title">find me elsewhere</h2>
+    <div class="chips">
+      {% if me.links.github != "" %}<a class="chip chip-blue" href="{{ me.links.github }}">GitHub</a>{% endif %}
+      {% if me.links.tiktok != "" %}<a class="chip chip-sage" href="{{ me.links.tiktok }}">TikTok</a>{% endif %}
+      {% if me.links.linkedin != "" %}<a class="chip chip-cream" href="{{ me.links.linkedin }}">LinkedIn</a>{% endif %}
+      {% if me.links.email != "" %}<a class="chip chip-sand" href="mailto:{{ me.links.email }}">Email</a>{% endif %}
+    </div>
+  </section>
+
+  {% if me.note_to_self != "" %}
+  <div class="sticky">
+    <span class="tape tape-dots" aria-hidden="true"></span>
+    <span class="hand">note to self:<br>{{ me.note_to_self }}</span>
+  </div>
+  {% endif %}
+</aside>

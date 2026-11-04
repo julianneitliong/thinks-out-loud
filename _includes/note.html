@@ -1,0 +1,8 @@
+{% comment %}
+  A cream callout box inside a post:
+    {% include note.html label="note to self" text="drink more water!" %}
+{% endcomment %}
+<aside class="post-note">
+  <span class="hand post-note-label">{{ include.label | default: "note to self" }}</span>
+  <p>{{ include.text }}</p>
+</aside>

@@ -1,0 +1,23 @@
+{% comment %}
+  Turns a YouTube link (video, youtu.be, or playlist) into an embedded player.
+  include youtube.html link="https://..." title="..."
+{% endcomment %}
+{% assign yt = include.link | strip %}
+{% if yt != "" %}
+  {% assign embed = "" %}
+  {% if yt contains "list=" %}
+    {% assign list_id = yt | split: "list=" | last | split: "&" | first %}
+    {% assign embed = "https://www.youtube-nocookie.com/embed/videoseries?list=" | append: list_id %}
+  {% elsif yt contains "youtu.be/" %}
+    {% assign vid = yt | split: "youtu.be/" | last | split: "?" | first %}
+    {% assign embed = "https://www.youtube-nocookie.com/embed/" | append: vid %}
+  {% elsif yt contains "v=" %}
+    {% assign vid = yt | split: "v=" | last | split: "&" | first %}
+    {% assign embed = "https://www.youtube-nocookie.com/embed/" | append: vid %}
+  {% endif %}
+  {% if embed != "" %}
+  <div class="yt">
+    <iframe src="{{ embed }}" title="{{ include.title | escape }} (YouTube player)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  {% endif %}
+{% endif %}

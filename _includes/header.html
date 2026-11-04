@@ -1,0 +1,16 @@
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">julianne <span class="pipe">|</span> thinks out loud</a>
+    <div class="topbar-right">
+      <nav class="mainnav" aria-label="Main">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a><span aria-hidden="true">|</span>
+        <a href="{{ '/archive/' | relative_url }}"{% if page.url == '/archive/' %} aria-current="page"{% endif %}>Blog Archive</a><span aria-hidden="true">|</span>
+        <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+      </nav>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <span data-theme-label>dark mode</span>
+      </button>
+    </div>
+  </div>
+</header>

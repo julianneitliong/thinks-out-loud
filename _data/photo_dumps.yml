@@ -1,0 +1,41 @@
+# ===============================================================
+#  PHOTO DUMP
+#  The NEWEST week goes at the TOP. Older weeks stay below
+#  and show up on the "past dumps" page automatically.
+#
+#  Each week has 8 photos. For each photo:
+#    file: the file name in the images folder (like "snack.jpg").
+#          Leave it "" to show a colored placeholder.
+#    alt:  a few words describing the photo (for screen readers).
+#    tape: stripes, dots, gingham, pinstripe, or none
+#
+#  To add a new week: copy everything from "- week:" down to the
+#  last photo of that week, paste it at the top, then change it.
+# ===============================================================
+
+- week: "week of nov 2"
+  photos:
+    - file: ""
+      alt: "a snack"
+      tape: stripes
+    - file: ""
+      alt: "a song"
+      tape: none
+    - file: ""
+      alt: "a quote"
+      tape: dots
+    - file: ""
+      alt: "a sunset"
+      tape: none
+    - file: ""
+      alt: "a new habit"
+      tape: none
+    - file: ""
+      alt: "a video"
+      tape: gingham
+    - file: ""
+      alt: "a place"
+      tape: none
+    - file: ""
+      alt: "anything"
+      tape: pinstripe

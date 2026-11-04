@@ -1,0 +1,10 @@
+{% comment %}
+  A row of photos inside a post (2 to 4 work best), separated by commas:
+    {% include photo-grid.html files="breakfast.jpg, lunch.jpg, dinner.jpg" alt="what I ate today" %}
+{% endcomment %}
+{% assign files = include.files | split: "," %}
+<div class="post-grid">
+  {% for f in files %}{% assign name = f | strip %}
+  <img src="{{ '/images/' | append: name | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy">
+  {% endfor %}
+</div>

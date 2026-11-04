@@ -1,0 +1,7 @@
+{% assign p = include.post %}
+<article class="post-card">
+  <span class="pixel muted">{{ p.date | date: '%b %d, %Y' | downcase }}{% if p.mood %} &middot; mood: {{ p.mood }}{% endif %}</span>
+  <a class="post-card-title serif" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+  <p class="muted">{{ p.excerpt | strip_html | normalize_whitespace | truncatewords: 30 }}</p>
+  <a class="small-link" href="{{ p.url | relative_url }}">read more &rsaquo;&rsaquo;</a>
+</article>

@@ -1,0 +1,20 @@
+<div class="time-chart" data-time-chart>
+  <div class="panel-head">
+    <div>
+      <h3 class="panel-title serif">where my time went</h3>
+      <span class="pixel muted"><span data-range-note>this week</span>{% if site.data.profile.time_note != "" %} &middot; {{ site.data.profile.time_note }}{% endif %}</span>
+    </div>
+    <div class="seg" role="group" aria-label="Time range">
+      <button type="button" class="seg-btn is-on" data-range="week" aria-pressed="true">this week</button>
+      <button type="button" class="seg-btn" data-range="month" aria-pressed="false">last 4 weeks</button>
+    </div>
+  </div>
+  <div class="bars" data-bars>
+    <noscript><p class="muted">Turn on JavaScript to see the chart.</p></noscript>
+  </div>
+  <div class="stat-row">
+    <div class="stat stat-cream"><span class="pixel muted">total logged</span><span class="serif stat-num" data-total>&ndash;</span></div>
+    <div class="stat stat-sage"><span class="pixel muted">work / life split</span><span class="serif stat-num" data-split>&ndash;</span></div>
+  </div>
+  <script type="application/json" data-time-data>{{ site.data.time | jsonify }}</script>
+</div>

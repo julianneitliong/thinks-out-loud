@@ -1,0 +1,22 @@
+---
+layout: default
+---
+{% assign cat = site.categories_info | where: "id", page.category_id | first %}
+{% assign posts = site.categories[page.category_id] %}
+<main class="wrap columns">
+  <div class="col-main">
+    <section class="card page-card">
+      <a class="small-link back" href="{{ '/' | relative_url }}">&lsaquo;&lsaquo; home</a>
+      <h1 class="serif page-title">{{ cat.title }}</h1>
+      {{ content }}
+      {% if page.category_id == 'time' %}{% include time-chart.html %}{% endif %}
+      {% if posts and posts.size > 0 %}
+        {% for p in posts %}{% include post-card.html post=p %}{% endfor %}
+      {% else %}
+        <p class="muted empty">no posts here yet. check back soon!</p>
+      {% endif %}
+      <a class="small-link" href="{{ '/feed/' | append: cat.id | append: '.xml' | relative_url }}">follow {{ cat.label | downcase }} with rss &rsaquo;&rsaquo;</a>
+    </section>
+  </div>
+  {% include sidebar.html %}
+</main>

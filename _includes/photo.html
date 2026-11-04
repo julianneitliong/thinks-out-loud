@@ -1,0 +1,9 @@
+{% comment %}
+  One photo inside a post:
+    {% include photo.html file="lunch.jpg" alt="my lunch" caption="optional words under the photo" %}
+  The file goes in the images folder.
+{% endcomment %}
+<figure class="post-photo">
+  <img src="{{ '/images/' | append: include.file | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy">
+  {% if include.caption %}<figcaption class="hand">{{ include.caption }}</figcaption>{% endif %}
+</figure>

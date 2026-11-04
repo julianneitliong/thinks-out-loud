@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------
+#  SITE SETTINGS
+#  You rarely need to touch this file.
+#  Your profile, photo dump, hours and TikToks live in the _data folder.
+#  Your blog posts live in the _posts folder.
+# ---------------------------------------------------------------
+
+title: "julianne | thinks out loud"
+description: "a little corner of the internet: wellness, learning, time well spent and confidence."
+author: "Julianne"
+lang: en
+
+# Where the site lives. (julianneitliong.github.io/thinks-out-loud)
+url: "https://julianneitliong.github.io"
+baseurl: "/thinks-out-loud"
+
+timezone: America/Los_Angeles
+permalink: /:categories/:year/:month/:title/
+markdown: kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# One RSS feed per category, so people can follow just what they like.
+feed:
+  categories:
+    - wellness
+    - learning
+    - time
+    - confidence
+
+# The four folder tabs, in order.
+# "id" is what you type after  category:  at the top of a post.
+categories_info:
+  - id: wellness
+    label: "Wellness"
+    title: "health & wellness log"
+  - id: learning
+    label: "Learning & Projects"
+    title: "learning & projects"
+  - id: time
+    label: "Time Well Spent"
+    title: "where my time went"
+  - id: confidence
+    label: "Confidence"
+    title: "confidence"
+
+exclude:
+  - README.md
+  - HOW-TO-UPDATE.md
+  - site-style-guide.md
+  - images/README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

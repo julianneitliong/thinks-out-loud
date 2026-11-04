@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<main class="wrap columns">
+  <div class="col-main">
+    <section class="card page-card">
+      <a class="small-link back" href="{{ '/' | relative_url }}">&lsaquo;&lsaquo; home</a>
+      <h1 class="serif page-title">{{ page.title }}</h1>
+      <div class="post-body">
+        {{ content }}
+      </div>
+    </section>
+  </div>
+  {% include sidebar.html %}
+</main>
