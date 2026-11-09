@@ -11,11 +11,19 @@ layout: default
     {% include doodles.html kind="sparkle" class="twinkle d2 hero-star-2" size="16" %}
 
     <div class="hero-photo">
-      {% if me.photo and me.photo != "" %}
-      <img src="{{ '/images/' | append: me.photo | relative_url }}" alt="{{ me.photo_alt | escape }}">
-      {% else %}
-      <div class="ph ph-blue hero-ph" role="img" aria-label="{{ me.photo_alt | escape }}"><span class="pixel">[your photo]</span></div>
-      {% endif %}
+      <div class="scrap">
+        <span class="scrap-paper scrap-paper-1" aria-hidden="true"></span>
+        <span class="scrap-paper scrap-paper-2" aria-hidden="true"></span>
+        <div class="scrap-photo">
+          {% if me.photo and me.photo != "" %}
+          <img src="{{ '/images/' | append: me.photo | relative_url }}" alt="{{ me.photo_alt | escape }}">
+          {% else %}
+          <div class="ph ph-blue hero-ph" role="img" aria-label="{{ me.photo_alt | escape }}"><span class="pixel">[your photo]</span></div>
+          {% endif %}
+        </div>
+        <span class="tape tape-stripes scrap-tape-1" aria-hidden="true"></span>
+        <span class="tape tape-pinstripe scrap-tape-2" aria-hidden="true"></span>
+      </div>
       {% include doodles.html kind="heart" class="twinkle d3 hero-heart" size="40" %}
     </div>
 
