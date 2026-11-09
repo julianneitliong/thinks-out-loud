@@ -47,15 +47,20 @@ layout: default
           <div><span class="pixel muted">into this week</span><b>{{ me.now.into_this_week }}</b></div>
           <div><span class="pixel muted">currently</span><b>{{ me.now.currently }}</b></div>
         </div>
-        <div class="now-playing">
-          <span class="pixel muted">now playing</span>
+        {% if me.youtube_link != "" %}
+        <a class="now-playing" href="#music">
+          <span class="pixel muted">now playing &#9835;</span>
           <b>{{ me.song_title }}</b>
-          {% include youtube.html link=me.youtube_link title=me.song_title %}
-        </div>
+          <span class="small-link">listen in my music player &darr;</span>
+        </a>
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
+
+<!-- ================= MUSIC PLAYER ================= -->
+{% include music-player.html %}
 
 <!-- ================= PHOTO DUMP ================= -->
 {% if week %}

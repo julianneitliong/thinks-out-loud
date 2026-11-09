@@ -1,0 +1,15 @@
+{%- comment -%}
+  Prints the embed address for a YouTube link (video, youtu.be, or playlist).
+  Use with capture:  {% capture url %}{% include youtube-embed-url.html link=... %}{% endcapture %}
+{%- endcomment -%}
+{%- assign yt = include.link | strip -%}
+{%- if yt contains "list=" -%}
+{%- assign list_id = yt | split: "list=" | last | split: "&" | first -%}
+https://www.youtube-nocookie.com/embed/videoseries?list={{ list_id }}
+{%- elsif yt contains "youtu.be/" -%}
+{%- assign vid = yt | split: "youtu.be/" | last | split: "?" | first -%}
+https://www.youtube-nocookie.com/embed/{{ vid }}
+{%- elsif yt contains "v=" -%}
+{%- assign vid = yt | split: "v=" | last | split: "&" | first -%}
+https://www.youtube-nocookie.com/embed/{{ vid }}
+{%- endif -%}
