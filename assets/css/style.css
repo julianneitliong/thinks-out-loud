@@ -285,7 +285,6 @@ b { font-weight: 700; }
 .footer-inner { padding-top: 24px; padding-bottom: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
 
 /* ---------- profile music player (MySpace-style) ---------- */
-a.now-playing { color: var(--ink); }
 a.now-playing:hover { text-decoration: none; }
 a.now-playing:hover .small-link { text-decoration: underline; }
 .player-wrap { padding-top: 8px; padding-bottom: 8px; scroll-margin-top: 16px; }
