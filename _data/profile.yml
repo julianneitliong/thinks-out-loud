@@ -29,8 +29,8 @@ now:
 #   https://youtu.be/abc123
 #   https://www.youtube.com/playlist?list=PLabc123
 # Leave it as "" to hide the player.
-song_title: "[Song] — [Artist]"
-youtube_link: ""
+song_title: "Moon So High — Remi Wolf & John Mayer"
+youtube_link: "https://youtu.be/B0SWBX6kHx4?si=53dlFqvnNxuOBQjL"
 
 # ---------- Julianne's blurbs ----------
 things_that_make_me_happy: "[A quick list: little joys, rituals, guilty pleasures.]"
