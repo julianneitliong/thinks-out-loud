@@ -1,0 +1,42 @@
+{%- comment -%}
+  A diary-style feed: the newest posts in full, then older subject lines.
+    include feed.html posts=site.posts full=3 older=5 more_url="/archive/" more_label="see all posts"
+{%- endcomment -%}
+{%- assign full = include.full | default: 3 -%}
+{%- assign older = include.older | default: 5 -%}
+{%- if include.posts and include.posts.size > 0 -%}
+  {%- for p in include.posts limit: full -%}
+    {%- assign pcat_id = p.categories | first -%}
+    {%- assign pcat = site.categories_info | where: "id", pcat_id | first %}
+  <article class="entry">
+    <div class="post-card-meta">
+      <span class="pixel muted">{{ p.date | date: '%b %d, %Y' | downcase }}</span>
+      {% if pcat %}<a class="tag-chip tag-{{ pcat.id }}" href="{{ '/' | append: pcat.id | append: '/' | relative_url }}">{{ pcat.label | downcase }}</a>{% endif %}
+    </div>
+    <h4 class="entry-title serif"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h4>
+    {% if p.mood or p.music %}
+    <div class="entry-meta">
+      {% if p.mood %}<span><b>mood:</b> {{ p.mood }}</span>{% endif %}
+      {% if p.music %}<span><b>listening to:</b> {{ p.music }}</span>{% endif %}
+    </div>
+    {% endif %}
+    <div class="post-body entry-body">
+      {{ p.content }}
+    </div>
+  </article>
+  {%- endfor %}
+
+  {%- if include.posts.size > full %}
+  <div class="older">
+    <span class="pixel muted">older posts</span>
+    <ul class="older-list">
+      {%- for p in include.posts offset: full limit: older %}
+      <li><span class="pixel muted">{{ p.date | date: '%b %d' | downcase }}</span> <a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endif %}
+  {%- if include.more_url %}<a class="small-link" href="{{ include.more_url | relative_url }}">{{ include.more_label | default: "see all posts" }} &rsaquo;&rsaquo;</a>{% endif %}
+{%- else %}
+  <p class="muted empty">no posts here yet. check back soon!</p>
+{%- endif %}

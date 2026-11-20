@@ -87,13 +87,8 @@ layout: default
       <div class="panel card" role="tabpanel" id="panel-all" aria-labelledby="tab-all">
         <div class="panel-head">
           <h3 class="panel-title serif">latest thoughts</h3>
-          <a class="small-link" href="{{ '/archive/' | relative_url }}">see all posts &rsaquo;&rsaquo;</a>
         </div>
-        {% if site.posts.size > 0 %}
-          {% for p in site.posts limit: 5 %}{% include post-card.html post=p %}{% endfor %}
-        {% else %}
-          <p class="muted empty">no posts yet. check back soon!</p>
-        {% endif %}
+        {% include feed.html posts=site.posts full=3 older=5 more_url="/archive/" more_label="see all posts" %}
       </div>
 
       {% for cat in site.categories_info %}
@@ -102,13 +97,11 @@ layout: default
         {% if cat.id == 'time' %}
           {% include time-chart.html %}
           {% if posts and posts.size > 0 %}
-            {% for p in posts limit: 3 %}{% include post-card.html post=p %}{% endfor %}
+            {% include feed.html posts=posts full=3 older=5 more_url="/time/" more_label="see all time well spent posts" %}
           {% endif %}
-          <a class="small-link" href="{{ '/time/' | relative_url }}">see all time well spent posts &rsaquo;&rsaquo;</a>
         {% else %}
           <div class="panel-head">
             <h3 class="panel-title serif">{{ cat.title }}</h3>
-            <a class="small-link" href="{{ '/' | append: cat.id | append: '/' | relative_url }}">see all {{ cat.label | downcase }} posts &rsaquo;&rsaquo;</a>
           </div>
 
           {% if cat.id == 'learning' and me.spotlight.name != "" %}
@@ -137,11 +130,9 @@ layout: default
           </div>
           {% endif %}
 
-          {% if posts and posts.size > 0 %}
-            {% for p in posts limit: 3 %}{% include post-card.html post=p %}{% endfor %}
-          {% else %}
-            <p class="muted empty">no posts here yet. check back soon!</p>
-          {% endif %}
+          {% assign cat_url = '/' | append: cat.id | append: '/' %}
+          {% assign cat_more = 'see all ' | append: cat.label | downcase | append: ' posts' %}
+          {% include feed.html posts=posts full=3 older=5 more_url=cat_url more_label=cat_more %}
         {% endif %}
       </div>
       {% endfor %}

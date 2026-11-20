@@ -10,11 +10,7 @@ layout: default
       <h1 class="serif page-title">{{ cat.title }}</h1>
       {{ content }}
       {% if page.category_id == 'time' %}{% include time-chart.html %}{% endif %}
-      {% if posts and posts.size > 0 %}
-        {% for p in posts %}{% include post-card.html post=p %}{% endfor %}
-      {% else %}
-        <p class="muted empty">no posts here yet. check back soon!</p>
-      {% endif %}
+      {% include feed.html posts=posts full=10 older=100 %}
       <a class="small-link" href="{{ '/feed/' | append: cat.id | append: '.xml' | relative_url }}">follow {{ cat.label | downcase }} with rss &rsaquo;&rsaquo;</a>
     </section>
   </div>

@@ -205,6 +205,17 @@ b { font-weight: 700; }
 
 .post-card { padding: 18px 0; border-bottom: 1px dashed var(--line); display: flex; flex-direction: column; gap: 4px; }
 .post-card:last-of-type { border-bottom: 0; }
+.entry { padding: 22px 0 26px; border-bottom: 1px dashed var(--line); display: flex; flex-direction: column; gap: 6px; }
+.entry:first-of-type { padding-top: 6px; }
+.entry-title { margin: 2px 0 0; font-size: 28px; line-height: 1.15; letter-spacing: -0.3px; }
+.entry-title a { color: var(--accent); }
+.entry-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); }
+.entry-meta b { color: var(--ink); }
+.entry-body { margin-top: 8px; }
+.older { padding: 18px 0 10px; display: flex; flex-direction: column; gap: 8px; }
+.older-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.older-list a { font-family: var(--serif); font-size: 18px; color: var(--ink); }
+.older-list .pixel { display: inline-block; min-width: 58px; }
 .post-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .tag-chip { display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #2B2B2B; letter-spacing: .2px; }
 .tag-chip:hover { text-decoration: none; filter: brightness(.95); }
