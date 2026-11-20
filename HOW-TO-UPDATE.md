@@ -41,7 +41,7 @@ tags: [food, routine]
 ---
 ```
 
-- **category** is optional. Every post shows under the **All** tab. Add `category:` with one of `wellness`, `learning`, `time` or `confidence` to also file it under that tab. Delete the line and the post simply lives under All.
+- **category** is optional. Every post shows under **latest thoughts → all**. Add `category:` with `wellness`, `learning` or `confidence` to also file it under that filter chip. Delete the line and the post simply lives under "all."
 - **The date comes from the file name** (`2026-11-03-...`). A future date won't show until that day.
 - Below the second `---`, just write. A blank line starts a new paragraph.
 
@@ -59,9 +59,9 @@ tags: [food, routine]
 One row per day, one column per habit. Put a `1` (or `x`) when you did it, and leave it blank when you didn't:
 
 ```
-date,gym,studying,job search,tiktok,family time,rest
-2026-11-21,1,1,,1,1,
-2026-11-22,,1,1,,1,1
+date,workout,study,job search / applying,tiktok,something fun
+11/21/2026,1,1,,1,
+11/22/2026,,1,1,,1
 ```
 
 - **Easiest: a Google Sheet.** Set it up like the example (dates like `11/21/2026` work too). Then go to **File → Share → Publish to web**, choose the sheet and **Comma-separated values (.csv)**, click **Publish**, and paste the link into `habit_sheet_csv` in `_data/profile.yml`. From then on, just update the sheet. The site reads it every time someone visits, with no commit needed.

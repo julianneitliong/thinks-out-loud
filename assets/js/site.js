@@ -36,7 +36,7 @@
         if (panel) panel.hidden = !on;
       });
       if (focus) tab.focus();
-      if (tab.id === 'tab-time') drawCharts();
+      if (tab.id === 'tab-habits') drawCharts();
       try { history.replaceState(null, '', '#' + tab.id.replace('tab-', '')); } catch (e) {}
     }
     tabs.forEach(function (tab, i) {
@@ -53,6 +53,20 @@
     /* open a tab from the address, e.g. .../#confidence */
     var fromHash = location.hash && document.getElementById('tab-' + location.hash.slice(1));
     if (fromHash && tabs.indexOf(fromHash) > -1) select(fromHash, false);
+  });
+
+  /* ---------- filter chips under "latest thoughts" ---------- */
+  document.querySelectorAll('[data-filters]').forEach(function (box) {
+    var chips = Array.prototype.slice.call(box.querySelectorAll('[data-filter]'));
+    var feeds = Array.prototype.slice.call(box.querySelectorAll('[data-feed]'));
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function (e) {
+        e.preventDefault();   /* without JavaScript, the chip just opens that category's page */
+        var f = chip.getAttribute('data-filter');
+        chips.forEach(function (c) { var on = c === chip; c.classList.toggle('is-on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        feeds.forEach(function (d) { d.hidden = d.getAttribute('data-feed') !== f; });
+      });
+    });
   });
 
   /* ---------- Time Well Spent: habit tracker ---------- */

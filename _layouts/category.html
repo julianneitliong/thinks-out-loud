@@ -9,7 +9,6 @@ layout: default
       <a class="small-link back" href="{{ '/' | relative_url }}">&lsaquo;&lsaquo; home</a>
       <h1 class="serif page-title">{{ cat.title }}</h1>
       {{ content }}
-      {% if page.category_id == 'time' %}{% include habit-tracker.html %}{% endif %}
       {% include feed.html posts=posts full=0 older=200 %}
       <a class="small-link" href="{{ '/feed/' | append: cat.id | append: '.xml' | relative_url }}">follow {{ cat.label | downcase }} with rss &rsaquo;&rsaquo;</a>
     </section>

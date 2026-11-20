@@ -73,68 +73,37 @@ layout: default
 <main class="wrap columns">
   <div class="col-main">
     <section class="folders" data-tabs>
-      <div class="tablist" role="tablist" aria-label="Categories">
-        <button type="button" role="tab" class="tab is-on" id="tab-all" aria-controls="panel-all" aria-selected="true">
-          <svg aria-hidden="true" width="15" height="13" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h4l1.5 1.5H13V11H1z"/></svg>All
+      <div class="tablist" role="tablist" aria-label="Sections">
+        <button type="button" role="tab" class="tab is-on" id="tab-thoughts" aria-controls="panel-thoughts" aria-selected="true">
+          <svg aria-hidden="true" width="15" height="13" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h4l1.5 1.5H13V11H1z"/></svg>latest thoughts
         </button>
+        <button type="button" role="tab" class="tab" id="tab-habits" aria-controls="panel-habits" aria-selected="false" tabindex="-1">
+          <svg aria-hidden="true" width="15" height="13" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h4l1.5 1.5H13V11H1z"/></svg>habit tracker
+        </button>
+      </div>
+
+      <div class="panel card" role="tabpanel" id="panel-thoughts" aria-labelledby="tab-thoughts" data-filters>
+        <div class="filter-chips" role="group" aria-label="Show posts about">
+          <a class="fchip fchip-all is-on" href="{{ '/archive/' | relative_url }}" data-filter="all" aria-pressed="true">all</a>
+          {% for cat in site.categories_info %}
+          <a class="fchip fchip-{{ cat.id }}" href="{{ '/' | append: cat.id | append: '/' | relative_url }}" data-filter="{{ cat.id }}" aria-pressed="false">{{ cat.label | downcase }}</a>
+          {% endfor %}
+        </div>
+        <div data-feed="all">
+          {% include feed.html posts=site.posts full=1 older=5 more_url="/archive/" more_label="see all posts" %}
+        </div>
         {% for cat in site.categories_info %}
-        <button type="button" role="tab" class="tab" id="tab-{{ cat.id }}" aria-controls="panel-{{ cat.id }}" aria-selected="false" tabindex="-1">
-          <svg aria-hidden="true" width="15" height="13" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h4l1.5 1.5H13V11H1z"/></svg>{{ cat.label }}
-        </button>
+        {% assign cat_url = '/' | append: cat.id | append: '/' %}
+        {% assign cat_posts = site.categories[cat.id] %}
+        <div data-feed="{{ cat.id }}" hidden>
+          {% include feed.html posts=cat_posts full=1 older=5 more_url=cat_url more_label="see them all" %}
+        </div>
         {% endfor %}
       </div>
 
-      <div class="panel card" role="tabpanel" id="panel-all" aria-labelledby="tab-all">
-        <div class="panel-head">
-          <h3 class="panel-title serif">latest thoughts</h3>
-        </div>
-        {% include feed.html posts=site.posts full=1 older=5 more_url="/archive/" more_label="see all posts" %}
+      <div class="panel card" role="tabpanel" id="panel-habits" aria-labelledby="tab-habits" hidden>
+        {% include habit-tracker.html %}
       </div>
-
-      {% for cat in site.categories_info %}
-      {% assign posts = site.categories[cat.id] %}
-      <div class="panel card" role="tabpanel" id="panel-{{ cat.id }}" aria-labelledby="tab-{{ cat.id }}" hidden>
-        {% if cat.id == 'time' %}
-          {% include habit-tracker.html %}
-          {% if posts and posts.size > 0 %}
-          <h3 class="panel-title serif habit-posts-title">time well spent posts</h3>
-          {% include feed.html posts=posts full=0 older=100 %}
-          {% endif %}
-        {% else %}
-          <div class="panel-head">
-            <h3 class="panel-title serif">{{ cat.title }}</h3>
-          </div>
-
-          {% if cat.id == 'learning' and me.spotlight.name != "" %}
-          <div class="spotlight lift">
-            <div>
-              <span class="pixel muted">project spotlight</span>
-              <b class="serif spotlight-name">{{ me.spotlight.name }}</b>
-              <span class="muted">{{ me.spotlight.description }}</span>
-            </div>
-            {% if me.spotlight.link != "" %}<a class="pill-link" href="{{ me.spotlight.link }}">View on GitHub &#8599;</a>{% endif %}
-          </div>
-          {% endif %}
-
-          {% if cat.id == 'confidence' and site.data.tiktok.size > 0 %}
-          <div class="video-grid">
-            {% for v in site.data.tiktok limit: 3 %}
-            <a class="video lift" href="{% if v.link != '' %}{{ v.link }}{% else %}#{% endif %}">
-              <div class="video-thumb">
-                {% if v.cover and v.cover != "" %}<img src="{{ '/images/' | append: v.cover | relative_url }}" alt="" loading="lazy">{% endif %}
-                <svg aria-hidden="true" width="30" height="30" viewBox="0 0 28 28" fill="#FEF9E3"><path d="M10 7l11 7-11 7z"/></svg>
-              </div>
-              <b>{{ v.title }}</b>
-              <span class="pixel muted">tiktok &middot; {{ v.date }}</span>
-            </a>
-            {% endfor %}
-          </div>
-          {% endif %}
-
-          {% include feed.html posts=posts full=0 older=100 %}
-        {% endif %}
-      </div>
-      {% endfor %}
     </section>
 
     <section class="blurbs">

@@ -27,12 +27,11 @@ feed:
   categories:
     - wellness
     - learning
-    - time
     - confidence
 
-# The four folder tabs (after "All"), in order.
-# To put a post under a tab, add  category: <id>  at the top of the post.
-# Leave the category line out and the post only shows under "All".
+# Post categories: the filter chips under "latest thoughts".
+# To file a post under one, add  category: <id>  at the top of the post.
+# Leave the category line out and the post only shows under "all".
 categories_info:
   - id: wellness
     label: "Wellness"
@@ -40,9 +39,6 @@ categories_info:
   - id: learning
     label: "Learning & Projects"
     title: "learning & projects"
-  - id: time
-    label: "Time Well Spent"
-    title: "where my time went"
   - id: confidence
     label: "Confidence"
     title: "confidence"

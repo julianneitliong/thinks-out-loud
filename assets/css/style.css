@@ -221,7 +221,6 @@ b { font-weight: 700; }
 .tag-chip:hover { text-decoration: none; filter: brightness(.95); }
 .tag-wellness { background: #E3EBDD; }
 .tag-learning { background: #D6E9F6; }
-.tag-time { background: #FEF3C7; }
 .tag-confidence { background: #F3D9DC; }
 .post-card-title { font-size: 22px; letter-spacing: -0.2px; color: var(--ink); }
 
@@ -252,13 +251,32 @@ b { font-weight: 700; }
 .stat-sage { background: var(--panel-sage); }
 .stat-num { font-size: 28px; color: var(--ink); }
 
+/* ---------- filter chips + sidebar extras ---------- */
+.filter-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 6px; }
+.fchip {
+  min-height: 32px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 13px; font-weight: 700;
+}
+.fchip:hover { text-decoration: none; color: var(--ink); border-color: var(--muted); }
+.fchip.is-on { color: #2B2B2B; border-color: transparent; }
+.fchip-all.is-on { background: #A3B899; }
+.fchip-wellness.is-on { background: #E3EBDD; }
+.fchip-learning.is-on { background: #D6E9F6; }
+.fchip-confidence.is-on { background: #F3D9DC; }
+.spotlight-card { display: flex; flex-direction: column; gap: 4px; }
+.spotlight-card .card-title { margin: 0; }
+.spotlight-card .pill-link { align-self: flex-start; margin-top: 6px; }
+.tt-card { display: flex; align-items: center; gap: 12px; margin-top: 8px; color: var(--ink); border-radius: 12px; }
+.tt-card:hover { text-decoration: none; }
+.tt-play { width: 44px; height: 56px; flex-shrink: 0; border-radius: 10px; background: #2B2B2B; display: flex; align-items: center; justify-content: center; }
+
 /* ---------- habit tracker ---------- */
 .habits { margin-bottom: 18px; }
 .habit-view { margin-top: 16px; }
-.habit-grid { display: grid; grid-template-columns: minmax(84px, 1.3fr) repeat(var(--days), minmax(0, 1fr)) 44px; gap: 8px 6px; align-items: center; }
+.habit-grid { display: grid; grid-template-columns: minmax(110px, 1.5fr) repeat(var(--days), minmax(0, 1fr)) 44px; gap: 8px 6px; align-items: center; }
 .hg-day { display: flex; flex-direction: column; align-items: center; font-size: 16px; line-height: 1; }
 .hg-day b { font-weight: 400; color: var(--ink); font-size: 18px; margin-top: 2px; }
-.hg-name { font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hg-name { font-size: 14px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
 .hg-cell {
   justify-self: center; width: 30px; height: 30px; border-radius: 50%;
   border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center;
@@ -385,7 +403,7 @@ a.now-playing:hover .small-link { text-decoration: underline; }
   .post, .page-card { padding: 22px; }
   .post-title, .page-title { font-size: 34px; }
   .bar-row { grid-template-columns: 90px minmax(0, 1fr) 54px; gap: 8px; }
-  .habit-grid { grid-template-columns: 70px repeat(var(--days), minmax(0, 1fr)) 34px; gap: 6px 3px; }
+  .habit-grid { grid-template-columns: 78px repeat(var(--days), minmax(0, 1fr)) 34px; gap: 6px 3px; }
   .hg-cell { width: 24px; height: 24px; font-size: 12px; }
   .hg-name { font-size: 12px; }
   .hg-count { font-size: 16px; }

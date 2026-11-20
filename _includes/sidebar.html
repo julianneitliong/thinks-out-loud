@@ -20,6 +20,26 @@
     </div>
   </section>
 
+  {% unless me.spotlight.name contains "[" or me.spotlight.name == "" %}
+  <section class="card side-card spotlight-card lift">
+    <span class="pixel muted">currently building</span>
+    <h2 class="serif card-title">{{ me.spotlight.name }}</h2>
+    <p class="muted">{{ me.spotlight.description }}</p>
+    {% if me.spotlight.link != "" %}<a class="pill-link" href="{{ me.spotlight.link }}">see it on GitHub &#8599;</a>{% endif %}
+  </section>
+  {% endunless %}
+
+  {% assign tt = site.data.tiktok | where_exp: "v", "v.link != ''" | first %}
+  {% if tt %}
+  <section class="card side-card">
+    <span class="pixel muted">latest tiktok</span>
+    <a class="tt-card lift" href="{{ tt.link }}">
+      <span class="tt-play" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 28 28" fill="#FEF9E3"><path d="M10 7l11 7-11 7z"/></svg></span>
+      <span><b>{{ tt.title }}</b><br><span class="pixel muted">{{ tt.date }}</span></span>
+    </a>
+  </section>
+  {% endif %}
+
   {% if me.note_to_self != "" %}
   <div class="sticky">
     <span class="tape tape-dots" aria-hidden="true"></span>
