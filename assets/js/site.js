@@ -110,7 +110,12 @@
     });
     var dates = Object.keys(byDate).sort();
     if (!dates.length) return null;
-    return { habits: habits, byDate: byDate, last: dates[dates.length - 1] };
+    /* end on today, not on future dates already typed into the sheet */
+    var now = new Date();
+    var today = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    var last = dates[dates.length - 1];
+    if (last > today) last = today;
+    return { habits: habits, byDate: byDate, last: last };
   }
 
   function renderHabits(box, data, view) {
