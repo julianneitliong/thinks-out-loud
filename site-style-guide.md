@@ -77,7 +77,7 @@ Four free Google Fonts, each with one job: a classic serif for headings, a clean
 | Libre Caslon Display | Headings | Site name, "hi, i'm julianne :)", section titles, post titles, Blurbs, sidebar titles | Upright, never italic. Site name 24px, hero 62px, section 36px, panel 26px, post titles 22px. One weight only. |
 | DM Sans | Body text | Paragraphs, previews, nav links, buttons, tabs, chips | 15px body, line-height 1.55. Nav, tabs and buttons 13–14px bold. |
 | Caveat | Handwriting | "welcome friend! thanks for stopping by!", Blurbs labels, the "week of" sticker, the sticky note, "xo, julianne" | 24–34px bold, often slightly tilted |
-| VT323 | Pixel labels | "online now!", dates, "now playing", now-card labels, Interests labels, chart hours, footer | 17–20px, used sparingly |
+| VT323 | Pixel labels | "online now!", dates, "now playing", now-card labels, Interests labels, habit counts, footer | 17–20px, used sparingly |
 
 **Rules of thumb**
 
@@ -155,7 +155,7 @@ Posts are grouped into the four pillars I'm working on, and each pillar is a fol
 | --- | --- |
 | Wellness | Blog posts with photos: what I eat in a day, a week of workouts, healthy habits |
 | Learning & Projects | Posts about projects (beyond the GitHub README) and certifications I'm studying for, how I feel about them, and a project spotlight linking to GitHub |
-| Time Well Spent | Interactive charts of where my hours went (studying, family, gym, TikTok and more), with a this week / last 4 weeks toggle, total hours, and a work/life split |
+| Time Well Spent | A habit tracker: a weekly checklist grid (one row per habit, a colored check sticker for each day done) and a last-4-weeks consistency view, read from a Google Sheet or `_data/habits.csv` |
 | Confidence | Links to my TikTok videos and real, authentic posts about topics I care about |
 
 **How visitors get around**
@@ -184,7 +184,7 @@ The site is hosted free on GitHub Pages and built with Jekyll, which GitHub Page
 | Hero, now card, mood, song | `profile` file | Edit the text, and paste a new YouTube link for the song of the week |
 | About me, blurbs, interests | `profile` file | Edit the text |
 | Hero photo | `images` folder | Upload a new photo with the same file name |
-| Time Well Spent chart | `time` file | Type each week's hours, like `Studying, 10` |
+| Time Well Spent habits | Google Sheet or `_data/habits.csv` | Add a row per day with a `1` under each habit done |
 | TikTok videos | `tiktok` file | Paste the video links |
 | Links (GitHub, TikTok, LinkedIn, email) | `profile` file | Edit the links |
 

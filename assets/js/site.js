@@ -55,106 +55,139 @@
     if (fromHash && tabs.indexOf(fromHash) > -1) select(fromHash, false);
   });
 
-  /* ---------- Time Well Spent chart ---------- */
-  var COLORS = ['#A3B899', '#4D1821', '#7FB2D9', '#6F8A63', '#D9B95B', '#B07A84', '#C9A9D6', '#E39C7A'];
-  var DARK_SWAP = { '#4D1821': '#C9727F' };
+  /* ---------- Time Well Spent: habit tracker ---------- */
+  var DONE = ['1', 'x', 'yes', 'y', 'true', 'done', '\u2713', '\u2714'];
+  var DOT_COLORS = ['#A3B899', '#7FB2D9', '#E8A6B0', '#D9B95B', '#B9A2D3', '#E39C7A', '#8FB8A8', '#C9727F'];
 
-  function readRows(chart) {
-    var el = chart.querySelector('[data-time-data]');
-    if (!el) return [];
-    try {
-      return JSON.parse(el.textContent).map(function (r) {
-        return {
-          week: String(r.week || '').trim(),
-          activity: String(r.activity || '').trim(),
-          hours: parseFloat(r.hours) || 0,
-          type: String(r.type || 'life').trim().toLowerCase()
-        };
-      }).filter(function (r) { return r.week && r.activity; });
-    } catch (e) { return []; }
-  }
-
-  function fmtWeek(iso) {
-    var d = new Date(iso + 'T12:00:00');
-    if (isNaN(d)) return iso;
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toLowerCase();
-  }
-
-  function render(chart, range) {
-    var rows = readRows(chart);
-    var bars = chart.querySelector('[data-bars]');
-    if (!rows.length) { bars.innerHTML = '<p class="muted">No hours logged yet. Add some to _data/time.csv.</p>'; return; }
-
-    var weeks = rows.map(function (r) { return r.week; })
-      .filter(function (w, i, a) { return a.indexOf(w) === i; }).sort();
-    var pick = range === 'month' ? weeks.slice(-4) : weeks.slice(-1);
-
-    var order = [], totals = {}, types = {};
-    rows.forEach(function (r) {
-      if (order.indexOf(r.activity) === -1) order.push(r.activity);
-      if (pick.indexOf(r.week) === -1) return;
-      totals[r.activity] = (totals[r.activity] || 0) + r.hours;
-      types[r.activity] = r.type;
-    });
-    var acts = order.filter(function (a) { return totals[a] > 0; })
-      .sort(function (a, b) { return totals[b] - totals[a]; });
-    var max = Math.max.apply(null, acts.map(function (a) { return totals[a]; }).concat([1]));
-    var sum = 0, work = 0;
-    acts.forEach(function (a) { sum += totals[a]; if (types[a] === 'work') work += totals[a]; });
-    var dark = root.getAttribute('data-theme') === 'dark';
-
-    bars.innerHTML = '';
-    acts.forEach(function (a) {
-      var color = COLORS[order.indexOf(a) % COLORS.length];
-      if (dark && DARK_SWAP[color]) color = DARK_SWAP[color];
-      var row = document.createElement('div');
-      row.className = 'bar-row';
-      row.innerHTML = '<span class="bar-label"></span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-hrs"></span>';
-      row.querySelector('.bar-label').textContent = a;
-      row.querySelector('.bar-hrs').textContent = (Math.round(totals[a] * 10) / 10) + ' hrs';
-      var fill = row.querySelector('.bar-fill');
-      fill.style.background = color;
-      row.title = a + ': ' + totals[a] + ' hours';
-      bars.appendChild(row);
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { fill.style.width = Math.round(totals[a] / max * 100) + '%'; });
-      });
-    });
-
-    var wp = sum ? Math.round(work / sum * 100) : 0;
-    chart.querySelector('[data-total]').textContent = (Math.round(sum * 10) / 10) + ' hrs';
-    chart.querySelector('[data-split]').textContent = wp + '% / ' + (100 - wp) + '%';
-    var note = chart.querySelector('[data-range-note]');
-    if (note) {
-      note.textContent = range === 'month'
-        ? fmtWeek(pick[0]) + ' – ' + fmtWeek(pick[pick.length - 1]) + ' (4 weeks)'
-        : 'week of ' + fmtWeek(pick[0]);
+  function parseCSV(text) {
+    var rows = [], row = [], cell = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i];
+      if (q) {
+        if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (c === '"') q = false;
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ',') { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(cell); rows.push(row); row = []; cell = '';
+      } else cell += c;
     }
-  }
-
-  function drawCharts() {
-    document.querySelectorAll('[data-time-chart]').forEach(function (chart) {
-      if (chart.offsetParent === null) return; /* hidden tab: draw when opened */
-      render(chart, chart.getAttribute('data-range') || 'week');
+    if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+    var head = (rows.shift() || []).map(function (h) { return h.trim(); });
+    return rows.filter(function (r) { return r.join('').trim() !== ''; }).map(function (r) {
+      var o = {}; head.forEach(function (h, k) { o[h] = (r[k] || '').trim(); }); return o;
     });
   }
 
-  document.querySelectorAll('[data-time-chart]').forEach(function (chart) {
-    chart.querySelectorAll('[data-range]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var range = btn.getAttribute('data-range');
-        chart.setAttribute('data-range', range);
-        chart.querySelectorAll('[data-range]').forEach(function (b) {
-          var on = b === btn;
-          b.classList.toggle('is-on', on);
-          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  function toISO(v) {
+    v = String(v || '').trim();
+    if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(v)) {
+      var p = v.split('-'); return p[0] + '-' + ('0' + p[1]).slice(-2) + '-' + ('0' + p[2]).slice(-2);
+    }
+    var m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);   /* 11/20/2026 (Google Sheets style) */
+    if (m) { var y = m[3].length === 2 ? '20' + m[3] : m[3]; return y + '-' + ('0' + m[1]).slice(-2) + '-' + ('0' + m[2]).slice(-2); }
+    return '';
+  }
+  function addDays(iso, n) {
+    var d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n);
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function fmt(iso, opts) { return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', opts).toLowerCase(); }
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+  function shape(rows) {
+    if (!rows.length) return null;
+    var keys = Object.keys(rows[0]);
+    var dateKey = keys.filter(function (k) { return k.toLowerCase() === 'date'; })[0] || keys[0];
+    var habits = keys.filter(function (k) { return k !== dateKey && k !== ''; });
+    var byDate = {};
+    rows.forEach(function (r) {
+      var d = toISO(r[dateKey]); if (!d) return;
+      byDate[d] = byDate[d] || {};
+      habits.forEach(function (h) { if (DONE.indexOf(String(r[h] || '').trim().toLowerCase()) > -1) byDate[d][h] = true; });
+    });
+    var dates = Object.keys(byDate).sort();
+    if (!dates.length) return null;
+    return { habits: habits, byDate: byDate, last: dates[dates.length - 1] };
+  }
+
+  function renderHabits(box, data, view) {
+    var out = box.querySelector('[data-habit-view]');
+    if (!data) { out.innerHTML = '<p class="muted">No habits logged yet.</p>'; return; }
+    var days = view === 'month' ? 28 : 7;
+    var span = []; for (var i = days - 1; i >= 0; i--) span.push(addDays(data.last, -i));
+    var done = function (d, h) { return !!(data.byDate[d] && data.byDate[d][h]); };
+    var total = 0, html = '';
+
+    if (view === 'week') {
+      html += '<div class="habit-grid" style="--days:7"><span></span>';
+      span.forEach(function (d) { html += '<span class="hg-day pixel muted">' + fmt(d, { weekday: 'short' }).slice(0, 2) + '<b>' + fmt(d, { day: 'numeric' }) + '</b></span>'; });
+      html += '<span></span>';
+      data.habits.forEach(function (h, k) {
+        var n = 0, color = DOT_COLORS[k % DOT_COLORS.length];
+        html += '<span class="hg-name">' + esc(h) + '</span>';
+        span.forEach(function (d) {
+          var on = done(d, h); if (on) n++;
+          html += '<span class="hg-cell' + (on ? ' is-done' : '') + '" style="--dot:' + color + '" title="' + esc(h) + ', ' + fmt(d, { month: 'short', day: 'numeric' }) + (on ? ': done' : ': not yet') + '">' + (on ? '\u2713' : '') + '</span>';
         });
-        render(chart, range);
+        total += n;
+        html += '<span class="hg-count pixel">' + n + '/7</span>';
+      });
+      html += '</div>';
+    } else {
+      html += '<div class="habit-bars">';
+      data.habits.forEach(function (h, k) {
+        var n = span.filter(function (d) { return done(d, h); }).length; total += n;
+        html += '<div class="bar-row"><span class="bar-label">' + esc(h) + '</span><div class="bar-track"><div class="bar-fill" data-w="' + Math.round(n / days * 100) + '" style="background:' + DOT_COLORS[k % DOT_COLORS.length] + '"></div></div><span class="bar-hrs">' + n + '/' + days + '</span></div>';
+      });
+      html += '</div>';
+    }
+    out.innerHTML = html;
+    out.querySelectorAll('.bar-fill').forEach(function (f) {
+      requestAnimationFrame(function () { requestAnimationFrame(function () { f.style.width = f.getAttribute('data-w') + '%'; }); });
+    });
+
+    /* streaks: consecutive days ending on the latest day (or the day before) */
+    var best = { h: '', n: 0 };
+    data.habits.forEach(function (h) {
+      var d = data.last, n = 0;
+      if (!done(d, h)) d = addDays(d, -1);
+      while (done(d, h)) { n++; d = addDays(d, -1); }
+      if (n > best.n) best = { h: h, n: n };
+    });
+    box.querySelector('[data-habit-total]').textContent = total + ' / ' + (data.habits.length * days);
+    box.querySelector('[data-stat-label]').textContent = view === 'month' ? 'checked off in 4 weeks' : 'checked off this week';
+    box.querySelector('[data-habit-streak]').textContent = best.n ? best.h + ' \u00b7 ' + best.n + (best.n === 1 ? ' day' : ' days') : '\u2013';
+    box.querySelector('[data-habit-range]').textContent = fmt(span[0], { month: 'short', day: 'numeric' }) + ' \u2013 ' + fmt(span[span.length - 1], { month: 'short', day: 'numeric' });
+  }
+
+  function drawCharts() { /* kept for the tab code: redraw any visible tracker */
+    document.querySelectorAll('[data-habits]').forEach(function (box) {
+      if (box._data !== undefined && box.offsetParent !== null) renderHabits(box, box._data, box._view || 'week');
+    });
+  }
+
+  document.querySelectorAll('[data-habits]').forEach(function (box) {
+    box._view = 'week';
+    var embedded = [];
+    try { embedded = JSON.parse(box.querySelector('[data-habit-data]').textContent) || []; } catch (e) {}
+    function start(rows) { box._data = shape(rows); renderHabits(box, box._data, box._view); }
+    var sheet = box.getAttribute('data-sheet');
+    if (sheet) {
+      fetch(sheet, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw 0; return r.text(); })
+        .then(function (t) { start(parseCSV(t)); })
+        .catch(function () { start(embedded); });
+    } else start(embedded);
+    box.querySelectorAll('[data-view]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        box._view = btn.getAttribute('data-view');
+        box.querySelectorAll('[data-view]').forEach(function (b) {
+          var on = b === btn; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        renderHabits(box, box._data, box._view);
       });
     });
   });
-  document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', drawCharts);
-  });
-  drawCharts();
 })();

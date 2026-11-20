@@ -237,7 +237,6 @@ b { font-weight: 700; }
 .video-thumb svg { position: relative; }
 
 /* ---------- time chart ---------- */
-.time-chart { margin-bottom: 14px; }
 .seg { display: flex; gap: 4px; padding: 4px; background: var(--sand); border-radius: 999px; }
 .seg-btn { min-height: 34px; padding: 4px 14px; background: transparent; color: var(--ink); border: 0; border-radius: 999px; font-family: var(--sans); font-size: 13px; font-weight: 700; cursor: pointer; }
 .seg-btn.is-on { background: var(--card); }
@@ -252,6 +251,25 @@ b { font-weight: 700; }
 .stat-cream { background: var(--panel-cream); }
 .stat-sage { background: var(--panel-sage); }
 .stat-num { font-size: 28px; color: var(--ink); }
+
+/* ---------- habit tracker ---------- */
+.habits { margin-bottom: 18px; }
+.habit-view { margin-top: 16px; }
+.habit-grid { display: grid; grid-template-columns: minmax(84px, 1.3fr) repeat(var(--days), minmax(0, 1fr)) 44px; gap: 8px 6px; align-items: center; }
+.hg-day { display: flex; flex-direction: column; align-items: center; font-size: 16px; line-height: 1; }
+.hg-day b { font-weight: 400; color: var(--ink); font-size: 18px; margin-top: 2px; }
+.hg-name { font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hg-cell {
+  justify-self: center; width: 30px; height: 30px; border-radius: 50%;
+  border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700; color: #2B2B2B;
+}
+.hg-cell.is-done { border: 0; background: var(--dot); box-shadow: 0 2px 0 rgba(77, 24, 33, .15); transform: rotate(-4deg); }
+.hg-count { text-align: right; font-size: 19px; }
+.habit-bars { display: flex; flex-direction: column; gap: 12px; }
+.habit-posts-title { margin-top: 18px; font-size: 22px; }
+.older-only { padding-top: 0; }
+.older-list { list-style: none; }
 
 /* ---------- blurbs, sidebar ---------- */
 .blurbs { position: relative; background: var(--panel-cream); border-radius: 22px; padding: 26px 28px; display: flex; flex-direction: column; gap: 14px; }
@@ -367,6 +385,10 @@ a.now-playing:hover .small-link { text-decoration: underline; }
   .post, .page-card { padding: 22px; }
   .post-title, .page-title { font-size: 34px; }
   .bar-row { grid-template-columns: 90px minmax(0, 1fr) 54px; gap: 8px; }
+  .habit-grid { grid-template-columns: 70px repeat(var(--days), minmax(0, 1fr)) 34px; gap: 6px 3px; }
+  .hg-cell { width: 24px; height: 24px; font-size: 12px; }
+  .hg-name { font-size: 12px; }
+  .hg-count { font-size: 16px; }
   .player-body { grid-template-columns: minmax(0, 1fr); padding: 16px; }
   .player-title { font-size: 19px; }
 }

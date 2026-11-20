@@ -23,7 +23,7 @@ The site rebuilds in about a minute: **https://julianneitliong.github.io/thinks-
 | Blurbs, interests, links, note to self | `_data/profile.yml` | Same |
 | Project spotlight | `_data/profile.yml` | Under `spotlight:` |
 | Weekly photo dump | `_data/photo_dumps.yml` | Copy the top week, paste it above, change the week and photos |
-| Time Well Spent hours | `_data/time.csv` | Add a line per activity: `2026-11-09,Studying,10,work` |
+| Time Well Spent habits | Your Google Sheet, or `_data/habits.csv` | Add a row for each day with a `1` under each habit you did |
 | TikTok videos | `_data/tiktok.yml` | Add a video at the top |
 | About page | `about.md` | Write below the dashed lines |
 
@@ -54,19 +54,20 @@ tags: [food, routine]
 > a line in big handwriting
 ```
 
-## Time Well Spent (`_data/time.csv`)
+## Time Well Spent: habit tracker
 
-Each line is: **week start date, activity, hours, work or life**
+One row per day, one column per habit. Put a `1` (or `x`) when you did it, and leave it blank when you didn't:
 
 ```
-2026-11-09,Family time,20,life
-2026-11-09,Studying,10,work
+date,gym,studying,job search,tiktok,family time,rest
+2026-11-21,1,1,,1,1,
+2026-11-22,,1,1,,1,1
 ```
 
-- Use the same date for every line in a week (the Monday or Sunday, just be consistent).
-- The chart shows the newest week, or the last 4 weeks added together.
-- `work` / `life` decides the work/life split.
-- The starting numbers are samples. Delete those lines when you add your own, and change or clear `time_note` in `profile.yml`.
+- **Easiest: a Google Sheet.** Set it up like the example (dates like `11/21/2026` work too). Then go to **File → Share → Publish to web**, choose the sheet and **Comma-separated values (.csv)**, click **Publish**, and paste the link into `habit_sheet_csv` in `_data/profile.yml`. From then on, just update the sheet. The site reads it every time someone visits, with no commit needed.
+- **Or in GitHub:** leave `habit_sheet_csv` as `""` and edit `_data/habits.csv`.
+- Rename, add or remove habits by changing the column headers.
+- The tracker shows the 7 days ending on your latest date, plus a "last 4 weeks" view. The starting data is a sample: delete those rows when you add your own, and change `habits_note` in `profile.yml`.
 
 ## Photo dump (`_data/photo_dumps.yml`)
 

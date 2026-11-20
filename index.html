@@ -88,16 +88,17 @@ layout: default
         <div class="panel-head">
           <h3 class="panel-title serif">latest thoughts</h3>
         </div>
-        {% include feed.html posts=site.posts full=3 older=5 more_url="/archive/" more_label="see all posts" %}
+        {% include feed.html posts=site.posts full=1 older=5 more_url="/archive/" more_label="see all posts" %}
       </div>
 
       {% for cat in site.categories_info %}
       {% assign posts = site.categories[cat.id] %}
       <div class="panel card" role="tabpanel" id="panel-{{ cat.id }}" aria-labelledby="tab-{{ cat.id }}" hidden>
         {% if cat.id == 'time' %}
-          {% include time-chart.html %}
+          {% include habit-tracker.html %}
           {% if posts and posts.size > 0 %}
-            {% include feed.html posts=posts full=3 older=5 more_url="/time/" more_label="see all time well spent posts" %}
+          <h3 class="panel-title serif habit-posts-title">time well spent posts</h3>
+          {% include feed.html posts=posts full=0 older=100 %}
           {% endif %}
         {% else %}
           <div class="panel-head">
@@ -130,9 +131,7 @@ layout: default
           </div>
           {% endif %}
 
-          {% assign cat_url = '/' | append: cat.id | append: '/' %}
-          {% assign cat_more = 'see all ' | append: cat.label | downcase | append: ' posts' %}
-          {% include feed.html posts=posts full=3 older=5 more_url=cat_url more_label=cat_more %}
+          {% include feed.html posts=posts full=0 older=100 %}
         {% endif %}
       </div>
       {% endfor %}

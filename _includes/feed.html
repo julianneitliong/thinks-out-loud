@@ -1,6 +1,6 @@
 {%- comment -%}
   A diary-style feed: the newest posts in full, then older subject lines.
-    include feed.html posts=site.posts full=3 older=5 more_url="/archive/" more_label="see all posts"
+    include feed.html posts=site.posts full=1 older=5 more_url="/archive/" more_label="see all posts"
 {%- endcomment -%}
 {%- assign full = include.full | default: 3 -%}
 {%- assign older = include.older | default: 5 -%}
@@ -27,8 +27,8 @@
   {%- endfor %}
 
   {%- if include.posts.size > full %}
-  <div class="older">
-    <span class="pixel muted">older posts</span>
+  <div class="older{% if full == 0 %} older-only{% endif %}">
+    {% if full > 0 %}<span class="pixel muted">older posts</span>{% endif %}
     <ul class="older-list">
       {%- for p in include.posts offset: full limit: older %}
       <li><span class="pixel muted">{{ p.date | date: '%b %d' | downcase }}</span> <a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>

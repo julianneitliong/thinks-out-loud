@@ -69,6 +69,13 @@ spotlight:
   description: "[One line on what it does.]"
   link: "https://github.com/julianneitliong"
 
-# ---------- Time Well Spent tab ----------
-# A small note under the chart title. Change it or set it to "".
-time_note: "sample numbers, replace with yours in _data/time.csv"
+# ---------- Time Well Spent tab: habit tracker ----------
+# Option A (easiest): a Google Sheet.
+#   Row 1: date, then one column per habit (gym, studying, ...).
+#   Each day: the date, and a 1 (or x) under each habit you did. Leave blank if not.
+#   In Google Sheets: File > Share > Publish to web > pick the sheet > "Comma-separated values (.csv)" > Publish.
+#   Paste that link below. After that, just edit the sheet. No GitHub commit needed.
+# Option B: leave this "" and edit _data/habits.csv here in GitHub instead.
+habit_sheet_csv: ""
+# A small note under the tracker title. Change it or set it to "".
+habits_note: "sample data for now"

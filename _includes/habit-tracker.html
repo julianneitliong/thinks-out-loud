@@ -1,0 +1,26 @@
+{%- comment -%}
+  Habit tracker for the Time Well Spent tab.
+  Reads your Google Sheet (habit_sheet_csv in _data/profile.yml) if set,
+  otherwise _data/habits.csv. One row per day, one column per habit.
+{%- endcomment -%}
+{%- assign me = site.data.profile -%}
+<div class="habits" data-habits data-sheet="{{ me.habit_sheet_csv | strip }}">
+  <div class="panel-head">
+    <div>
+      <h3 class="panel-title serif">habit tracker</h3>
+      <span class="pixel muted"><span data-habit-range>this week</span>{% if me.habits_note and me.habits_note != "" %} &middot; {{ me.habits_note }}{% endif %}</span>
+    </div>
+    <div class="seg" role="group" aria-label="Habit view">
+      <button type="button" class="seg-btn is-on" data-view="week" aria-pressed="true">this week</button>
+      <button type="button" class="seg-btn" data-view="month" aria-pressed="false">last 4 weeks</button>
+    </div>
+  </div>
+  <div class="habit-view" data-habit-view>
+    <noscript><p class="muted">Turn on JavaScript to see the habit tracker.</p></noscript>
+  </div>
+  <div class="stat-row">
+    <div class="stat stat-cream"><span class="pixel muted" data-stat-label>checked off this week</span><span class="serif stat-num" data-habit-total>&ndash;</span></div>
+    <div class="stat stat-sage"><span class="pixel muted">longest current streak</span><span class="serif stat-num" data-habit-streak>&ndash;</span></div>
+  </div>
+  <script type="application/json" data-habit-data>{{ site.data.habits | jsonify }}</script>
+</div>
