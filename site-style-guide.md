@@ -95,7 +95,7 @@ The home page is centered at up to 1100px wide and stacks into one column on pho
    - Left: my photo, rounded (24px corners) with a soft shadow, not a polaroid, plus a heart sticker and twinkling stars.
    - Right: "online now!" with a blinking sage dot and the last-updated date, "hi, i'm julianne :)", "welcome friend! thanks for stopping by!" in handwriting with a sage squiggle underline, a short intro, and the "Julianne is in your extended network." pill (kept word for word from MySpace).
 3. **Now card** (inside the hero). Mood, reading, into this week and currently, plus a now-playing row with the song of the week and a YouTube player.
-4. **This week's photo dump.** A title with a blue "week of …" sticker and a "past dumps ››" link. Below that, 8 square photos in two rows of four (two per row on phones). Each has a thin, even white border and a slight tilt, and some have patterned washi tape. No captions. Hover straightens and lifts a photo.
+4. **This week's photo dump.** A title with a blue "week of …" sticker and a "past dumps ››" link. Below that, 4 square photos in one row (two per row on phones). Each has a thin, even white border and a slight tilt, and some have patterned washi tape. No captions. Hover straightens and lifts a photo.
 5. **Folder tabs.** Wellness | Learning & Projects | Time Well Spent | Confidence. These are the only way into categories; the header has no category links. Each tab shows the 2–3 latest posts and ends with "see all \[category\] posts ››".
 6. **Julianne's blurbs.** A cream card with "things that make me happy" and "who i'd like to meet" in handwriting.
 7. **Sidebar.** Interests (General, Music, Movies, Television, Books, Heroes), Find me elsewhere chips (GitHub, TikTok, LinkedIn, Email), and a tilted "note to self" sticky note with washi tape.
@@ -180,7 +180,7 @@ The site is hosted free on GitHub Pages and built with Jekyll, which GitHub Page
 | --- | --- | --- |
 | Blog posts | `_posts` folder | Copy the template, name it `YYYY-MM-DD-title.md`, fill in title, category, mood and song at the top, then write below |
 | Photos in posts | `images` folder | Upload (save iPhone HEIC photos as JPG first, under a few MB each), then add `![description](/images/name.jpg)` where the photo goes |
-| Photo dump | `photo-dump` file + `images` folder | Upload 8 photos, list their file names, and pick a tape pattern (or none) for each. Last week's dump is kept for "past dumps" |
+| Photo dump | `photo-dump` file + `images` folder | Upload 4 photos, list their file names, and pick a tape pattern (or none) for each. Last week's dump is kept for "past dumps" |
 | Hero, now card, mood, song | `profile` file | Edit the text, and paste a new YouTube link for the song of the week |
 | About me, blurbs, interests | `profile` file | Edit the text |
 | Hero photo | `images` folder | Upload a new photo with the same file name |
@@ -203,7 +203,7 @@ Each decision we made along the way and why, so future changes don't undo them b
 | --- | --- |
 | Picked Libre Caslon Display for headings | Classic look. Fraunces's curly "j" didn't fit, and the italic site name felt off |
 | Rounded hero photo instead of a polaroid | Cleaner; the polaroid look stays in the photo dump |
-| Photo dump: 2 rows of 4 squares, thin white border, no captions, patterned washi tape | Neater and more eye-catching than the polaroid captions |
+| Photo dump: one row of 4 squares (cut down from 8), thin white border, no captions, patterned washi tape | Neater and more eye-catching than the polaroid captions |
 | "Top 8 friends" became a weekly photo dump | Changes every week and can be anything, not a fixed list |
 | Switched to v2 "modern retro" | v1 looked too much like a 2004 project; v2 adds personality and modern touches |
 | Warmer backgrounds | Pure white felt too stark |
