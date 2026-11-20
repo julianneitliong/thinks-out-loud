@@ -78,4 +78,4 @@ spotlight:
 # Option B: leave this "" and edit _data/habits.csv here in GitHub instead.
 habit_sheet_csv: ""
 # A small note under the tracker title. Change it or set it to "".
-habits_note: "sample data for now"
+habits_note: ""
