@@ -76,6 +76,6 @@ spotlight:
 #   In Google Sheets: File > Share > Publish to web > pick the sheet > "Comma-separated values (.csv)" > Publish.
 #   Paste that link below. After that, just edit the sheet. No GitHub commit needed.
 # Option B: leave this "" and edit _data/habits.csv here in GitHub instead.
-habit_sheet_csv: ""
+habit_sheet_csv: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQSg831SenjA5QGZ0XZmBZKrRxVB5Z1QGhcCRddUKZxwsoBJByWPC70Ui_qQE3FRdepHljedybqLQRG/pub?output=csv"
 # A small note under the tracker title. Change it or set it to "".
 habits_note: ""
