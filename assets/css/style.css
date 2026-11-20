@@ -205,6 +205,13 @@ b { font-weight: 700; }
 
 .post-card { padding: 18px 0; border-bottom: 1px dashed var(--line); display: flex; flex-direction: column; gap: 4px; }
 .post-card:last-of-type { border-bottom: 0; }
+.post-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.tag-chip { display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #2B2B2B; letter-spacing: .2px; }
+.tag-chip:hover { text-decoration: none; filter: brightness(.95); }
+.tag-wellness { background: #E3EBDD; }
+.tag-learning { background: #D6E9F6; }
+.tag-time { background: #FEF3C7; }
+.tag-confidence { background: #F3D9DC; }
 .post-card-title { font-size: 22px; letter-spacing: -0.2px; color: var(--ink); }
 
 .spotlight { margin: 8px 0; padding: 16px; background: var(--panel-blue); border-radius: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; }

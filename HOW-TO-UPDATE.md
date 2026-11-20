@@ -41,7 +41,7 @@ tags: [food, routine]
 ---
 ```
 
-- **category** must be one of: `wellness`, `learning`, `time`, `confidence`. That picks the folder tab.
+- **category** is optional. Every post shows under the **All** tab. Add `category:` with one of `wellness`, `learning`, `time` or `confidence` to also file it under that tab. Delete the line and the post simply lives under All.
 - **The date comes from the file name** (`2026-11-03-...`). A future date won't show until that day.
 - Below the second `---`, just write. A blank line starts a new paragraph.
 

@@ -5,8 +5,11 @@ layout: default
 {% assign cat = site.categories_info | where: "id", cat_id | first %}
 <main class="wrap columns post-page">
   <article class="col-main card post">
-    {% if cat %}<a class="small-link back" href="{{ '/' | append: cat.id | append: '/' | relative_url }}">&lsaquo;&lsaquo; back to {{ cat.label | downcase }}</a>{% endif %}
-    <span class="pixel muted">{{ page.date | date: '%b %d, %Y' | downcase }}</span>
+    <a class="small-link back" href="{{ '/' | relative_url }}">&lsaquo;&lsaquo; back home</a>
+    <div class="post-card-meta">
+      <span class="pixel muted">{{ page.date | date: '%b %d, %Y' | downcase }}</span>
+      {% if cat %}<a class="tag-chip tag-{{ cat.id }}" href="{{ '/' | append: cat.id | append: '/' | relative_url }}">{{ cat.label | downcase }}</a>{% endif %}
+    </div>
     <h1 class="serif post-title">{{ page.title }}</h1>
     <div class="post-meta">
       {% if page.mood %}<span><b>current mood:</b> {{ page.mood }}</span>{% endif %}
@@ -24,12 +27,12 @@ layout: default
   </article>
 
   <aside class="col-side">
-    {% if cat %}
+    {% if cat %}{% assign more = site.categories[cat.id] %}{% assign more_title = "more in " | append: cat.label | downcase %}{% else %}{% assign more = site.posts %}{% assign more_title = "more posts" %}{% endif %}
     <section class="card side-card">
-      <h2 class="serif card-title">more in {{ cat.label | downcase }}</h2>
+      <h2 class="serif card-title">{{ more_title }}</h2>
       <ul class="side-list">
         {% assign shown = 0 %}
-        {% for p in site.categories[cat.id] %}
+        {% for p in more %}
           {% if p.url != page.url and shown < 5 %}
           <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
           {% assign shown = shown | plus: 1 %}
@@ -38,7 +41,6 @@ layout: default
         {% if shown == 0 %}<li class="muted">more coming soon</li>{% endif %}
       </ul>
     </section>
-    {% endif %}
     <section class="card side-card">
       <h2 class="serif card-title">blog archive</h2>
       {% assign months = site.posts | group_by_exp: "p", "p.date | date: '%B %Y'" %}
@@ -48,8 +50,9 @@ layout: default
     </section>
     <section class="blurbs side-follow">
       <h2 class="serif card-title">get updates</h2>
-      <p>Follow just the categories you care about:</p>
+      <p>Follow everything, or just the tabs you care about:</p>
       <div class="chips">
+        <a class="chip chip-sand" href="{{ '/feed.xml' | relative_url }}">all posts rss</a>
         {% for c in site.categories_info %}<a class="chip chip-sand" href="{{ '/feed/' | append: c.id | append: '.xml' | relative_url }}">{{ c.label | downcase }} rss</a>{% endfor %}
       </div>
     </section>

@@ -12,7 +12,9 @@ tags: [tag1, tag2]
   2. Name it with the date and a short title, all lowercase, dashes for spaces:
         2026-11-10-my-new-post.md
   3. Copy everything in this file into it and fill it in.
-  4. category must be one of:  wellness   learning   time   confidence
+  4. category is OPTIONAL. It puts the post under one of the folder tabs:
+        wellness   learning   time   confidence
+     Delete the category line and the post only shows under "All".
   5. Delete any line at the top you don't need (like music or tags).
   6. Click "Commit changes". The post shows up in about a minute.
 
